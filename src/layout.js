@@ -8,7 +8,7 @@ import File from './components/file'
 
 const Layout = () => {
 
-    const [page, setPage] = useState(false)
+    const [page, setPage] = useState(true)
 
     return (
         <Box sx={{height: '100vh', width: '100vw', background: '#343541'}}>
