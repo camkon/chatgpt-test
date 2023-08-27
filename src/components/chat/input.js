@@ -11,8 +11,8 @@ const ChatInput = ({value, setValue, handleSend, loading}) => {
   }, [loading])
 
   return (
-    <Box sx={{minHeight: '7rem', width: '100%', position: 'absolute', bottom: 0, backgroundImage: 'linear-gradient(to top, #353740, #353740, #353740, transparent)'}}>
-        <Paper elevation={2} sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', margin: '0 auto', width: '50%', padding: '0.6rem 0.5rem', borderRadius: '0.75rem', boxSizing: 'border-box', background: '#40414f'}}>
+    <Box sx={{minHeight: '7rem', width: '100%', backgroundImage: 'linear-gradient(to top, #353740, #353740, #353740, transparent)'}}>
+        <Paper elevation={2} sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', margin: '0 auto', width: {xs: '90%', lg: '50%'}, padding: '0.5rem 0.5rem', borderRadius: '0.3rem', boxSizing: 'border-box', background: '#40414f'}}>
             <input 
                 autoFocus={true}
                 value={value}
