@@ -20,7 +20,7 @@ const Select = ({selectedFiles, setSelectedFiles}) => {
 
         axios.post(api.docs_upload, formData, {headers: {'Content-Type': 'multipart/form-data'}
         }).then(res => {
-            if(res?.data?.status === 200) {
+            if(res?.status === 200) {
                 setSelectedFiles([])
             }
             setUploading(false)
