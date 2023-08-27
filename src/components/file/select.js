@@ -4,10 +4,31 @@ import { api } from '../../core/api'
 import { Box, Button, Grid, IconButton, Typography } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import { Delete, Folder, Upload } from '@mui/icons-material'
+import { useDispatch, useSelector } from 'react-redux'
+import { filesAction } from '../../store/files'
+import { toast } from 'react-hot-toast'
+import { ErrorToast, SuccessToast } from '../alert/toaster'
 
-const Select = ({selectedFiles, setSelectedFiles}) => {
+
+const Select = () => {
+
+    const dispatch = useDispatch()
+    const selectedFiles = useSelector(state => state.files.selectedFiles)  
 
     const [uploading, setUploading] = useState(false)
+
+    const handleLoadFilesList = async () => {
+		const data = JSON.stringify({
+			search_text: '',
+			page: 0
+		})
+
+        axios.post(api.docs_list, data, {headers: {'Content-Type': 'application/json'}}).then(res => {
+			if(res.status === 200) {
+				dispatch(filesAction.setList(res?.data?.fileslist))
+			}
+		})
+    }
 
     const handleUploadFile = async () => {
         setUploading(true)
@@ -21,22 +42,23 @@ const Select = ({selectedFiles, setSelectedFiles}) => {
         axios.post(api.docs_upload, formData, {headers: {'Content-Type': 'multipart/form-data'}
         }).then(res => {
             if(res?.status === 200) {
-                setSelectedFiles([])
+                dispatch(filesAction.setSelctedFiles([]))
+                handleLoadFilesList()
+                toast((t) => <SuccessToast msg={'Files Uploaded'} id={t.id}/>)
             }
             setUploading(false)
         }).catch(er => {
+            toast((t) => <ErrorToast msg={er?.data?.message ?? 'Try Again'} id={t.id}/>)
             setUploading(false)
         })
     }
 
     const handleSelectFiles = (e) => {
-        setSelectedFiles([...selectedFiles, ...e.target.files])
+        dispatch(filesAction.setSelctedFiles([...selectedFiles, ...e.target.files]))
     }
 
-    useEffect(() => {console.log(selectedFiles)}, [selectedFiles])
-
     return (
-        <Box>
+        <Box sx={{borderBottom: '1px solid #2a2b32'}}>
             <Box sx={{padding: '2rem 0', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', columnGap: '0.5rem'}}>
                 <input 
                     type="file"
@@ -60,14 +82,14 @@ const Select = ({selectedFiles, setSelectedFiles}) => {
                         
                         <Grid item xs={0}>
                             <IconButton sx={{borderRadius: '0.25rem'}} onClick={(e) => {
-                                setSelectedFiles(selectedFiles?.filter((i, ind) => ind !== index))
+                                dispatch(filesAction.removeSelectedFiles(index))
                             }}><Delete sx={{color: '#c9ccd3'}}/></IconButton>
                         </Grid>
                     </Grid>
                 )})}
             </Box>}
 
-            {selectedFiles?.length !== 0 && <Box sx={{textAlign: 'center', paddingBottom: '2rem', borderBottom: '1px solid #2a2b32'}}>
+            {selectedFiles?.length !== 0 && <Box sx={{textAlign: 'center', paddingBottom: '2rem'}}>
                 <LoadingButton loading={uploading} onClick={handleUploadFile} variant='contained' sx={{color: '#fff', background: '#202123', ':hover': {background: '#2a2b32'}}} startIcon={<Upload />}>Upload Files</LoadingButton>    
             </Box>}
 
