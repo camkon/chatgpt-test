@@ -66,7 +66,7 @@ const Select = () => {
                     onChange={handleSelectFiles}
                     hidden
                     multiple
-                    accept='application/pdf'
+                    accept='.csv, .pdf'
                 />
                 <label htmlFor='upload-files-button'>
                     <Button component='span' variant='contained' sx={{background:'#202123', ':hover': {background: '#2a2b32'}}} startIcon={<Folder />}>Select Files</Button>
