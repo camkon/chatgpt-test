@@ -5,10 +5,11 @@ import { api } from '../../core/api'
 import { filesAction } from '../../store/files'
 import FileSearch from './file-search'
 import { Box, Grid, IconButton, Typography } from '@mui/material'
-import { Delete } from '@mui/icons-material'
+import { Delete, Download } from '@mui/icons-material'
 import DeleteAlertDialog from '../alert/delete'
 import { toast } from 'react-hot-toast'
 import { SuccessToast, ErrorToast } from '../alert/toaster'
+import { LoadingButton } from '@mui/lab'
 
 const FileList = () => {
 
@@ -18,24 +19,24 @@ const FileList = () => {
 	const [query, setQuery] = useState('')
 	const [openDelete, setOpenDelete] = useState(false)
 	const [deleteItem, setDeleteItem] = useState(0)
+	const [fileLoading, setFileLoading] = useState(false)
 
 	useEffect(() => {
-        handleLoadFilesList()
-    }, [])
+		handleLoadFilesList()
+	}, [])
 
-    const handleLoadFilesList = async () => {
-
+	const handleLoadFilesList = async () => {
 		const data = JSON.stringify({
 			search_text: query,
 			page: 0
 		})
 
-        axios.post(api.docs_list, data, {headers: {'Content-Type': 'application/json'}}).then(res => {
+		axios.post(api.docs_list, data, {headers: {'Content-Type': 'application/json'}}).then(res => {
 			if(res.status === 200) {
 				dispatch(filesAction.setList(res?.data?.fileslist))
 			}
 		})
-    }
+	}
 
 	const handleDeleteFile = () => {
 		const data = JSON.stringify({
@@ -49,9 +50,30 @@ const FileList = () => {
 		}})
 	}
 
+	const handleDownloadFile = async (filename) => {
+		dispatch(filesAction.setLoading(true))
+		const data = JSON.stringify({
+			filename: filename
+		})
+		axios.post(api.docs_download, data, {headers: {'Content-Type': 'application/json'}, responseType: 'blob'}).then(res => {if(res?.status === 200) {
+			const blob = new Blob([res?.data], { type: filename.split('.')?.[1] })
+			const url = URL.createObjectURL(blob)
+			const link = document.createElement('a')
+			link.href = url
+			link.setAttribute('download', filename)
+			document.body.appendChild(link)
+			link.click()
+			URL.revokeObjectURL(url)
+			document.body.removeChild(link)
+			dispatch(filesAction.setLoading(false))
+		}else {
+			toast((t) => <ErrorToast msg={'Try Again'} id={t.id}/>)
+			dispatch(filesAction.setLoading(false))
+		}})
+	}
+
 	return (
 		<Box sx={{padding: '2rem 0'}}>
-			
 			<FileSearch query={query} setQuery={setQuery}/>
 
 			{filesList?.length !== 0 ? <Box sx={{height: 'auto', padding: '0.5rem', width: {xs: '95%', lg: '70%'}, margin: '0 auto 2rem auto', borderRadius: '0.25rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', rowGap: '0.5rem', background: '#20212350', boxSizing: 'border-box'}}>
@@ -60,7 +82,7 @@ const FileList = () => {
                         <Grid item xs={6}><Typography sx={{overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>File Name</Typography></Grid>
                         <Grid item xs={1}><Typography>Page Count</Typography></Grid>                            
                         <Grid item xs={2}><Typography>Upload Date</Typography></Grid>                            
-                        <Grid item xs={0}><Typography>Action</Typography></Grid>                            
+                        <Grid item xs={1} sx={{textAlign: 'center'}}><Typography>Action</Typography></Grid>                            
                     </Grid>
                 {filesList?.map((item, index) => {
                     return(
@@ -71,9 +93,14 @@ const FileList = () => {
                         
                         <Grid item xs={1}><Typography>{item?.pagecount}</Typography></Grid>
                         
-						<Grid item xs={2}><Typography sx={{overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{item?.uploaddate}</Typography></Grid>
-                        
-						<Grid item xs={0}><IconButton sx={{borderRadius: '0.25rem', color: '#c9ccd3', ':hover': {color: '#fff'}}} onClick={(e) => {setOpenDelete(true); setDeleteItem(item?.fileid)}}><Delete sx={{color: 'inherit'}}/></IconButton></Grid>
+												<Grid item xs={2}><Typography sx={{overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{item?.uploaddate}</Typography></Grid>
+																		
+												<Grid item xs={1} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', columnGap: 0.5}}>
+													<LoadingButton sx={{borderRadius: '0.25rem', color: '#c9ccd3', ':hover': {color: '#fff', bgcolor: '#28282f'}, padding: '0.5rem', minWidth: '2rem'}} onClick={(e) => {handleDownloadFile(item?.filename)}}>
+														<Download sx={{color: 'inherit', padding: '0rem'}}/>
+													</LoadingButton>
+													<IconButton sx={{borderRadius: '0.25rem', color: '#c9ccd3', ':hover': {color: '#fff'}}} onClick={(e) => {setOpenDelete(true); setDeleteItem(item?.fileid)}}><Delete sx={{color: 'inherit'}}/></IconButton>
+												</Grid>
                     </Grid>
                 )})}
             </Box>

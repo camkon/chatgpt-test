@@ -5,7 +5,7 @@ export const api = {
     docs_upload : BASE_URL + 'docs/upload',
     docs_list : BASE_URL + 'docs/list',
     docs_delete : BASE_URL + 'docs/delete',
-    
+    docs_download : 'https://verdictbook.in/api/docs/getfile',    
     
     //search
     search : BASE_URL + 'search/',
