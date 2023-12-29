@@ -8,6 +8,7 @@ import Chat from './components/chat'
 import File from './components/file'
 import ToasterComponent from './components/alert/toaster'
 import Search from './components/search'
+import Prompt from './components/prompt'
 
 const Layout = () => {
 
@@ -20,6 +21,7 @@ const Layout = () => {
             <ToasterComponent />
             <Header page={page} setPage={setPage}/>
             {page === 'chat' && <Chat />}
+            {page === 'prompt' && <Prompt />}
             {page === 'search' && <Search />}
             {page === 'files' && <File />}
         </Box>

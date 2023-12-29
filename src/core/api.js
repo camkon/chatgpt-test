@@ -9,6 +9,10 @@ export const api = {
     
     //search
     search : BASE_URL + 'search/',
+
+    //prompt
+    get_prompt : BASE_URL + 'chat/getprompt',
+    set_prompt : BASE_URL + 'chat/setprompt',
     
     
     //chat
