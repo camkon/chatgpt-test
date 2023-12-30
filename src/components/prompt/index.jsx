@@ -14,24 +14,32 @@ const Prompt = () => {
 
   const [loading, setLoading] = useState(false)
 
-  const handleSearchQuery = async () => {
-    if(prompt !== '') {
+  const getPrompt = async () => {
+    // if(prompt !== '') {
       setLoading(true)
-      axios.post(api.get_prompt, {query: prompt}).then(res => {
+      axios.post(api.get_prompt).then(res => {
         if(res?.status === 200) {
-          dispatch(promptAction.setResponse(res?.data))
+          dispatch(promptAction.setPrompt(res?.data))
           setLoading(false)
         }
       }).catch(er => {
         console.log(er);
         setLoading(false)
       })
-    }
+    // }
   }
+
+  const setPrompt = () => {
+    dispatch(promptAction.setResponse(prompt))    
+  }
+
+  useEffect(() => {
+    getPrompt()
+  }, [])
 
   return (
     <Box sx={{position: 'relative', minHeight: 'calc(100vh - 3.8rem)', overflowY: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
-      <PromptInput handleSend={handleSearchQuery} loading={loading}/>
+      <PromptInput handleSend={setPrompt} loading={loading}/>
       <ChatList loading={loading}/>
     </Box>
   )

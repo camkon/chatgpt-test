@@ -6,15 +6,15 @@ import { useSelector } from 'react-redux'
 import { api } from '../../core/api'
 import { LoadingButton } from '@mui/lab'
 
-const LoadingAnimation = () => {
-    return(
-        <Box sx={{display: 'flex', justifyContent: 'center', boxSizing: 'border-box', background: {xs: '#40414f', lg: 'transparent'}}}>
-            <Box sx={{width: {xs: '90%', lg: '50%'}, boxSizing: 'border-box', background: {xs: 'inherit', lg: '#40414f'}, padding: {xs: '1rem 0rem', lg: '1rem'}, borderRadius: '0.3rem'}}>
-                <Lottie style={{height: 20, width: 30}} autoPlay animationData={require('../../assets/loading-dots.json')} loop={true}/>
-            </Box>
-        </Box>
-    )
-}
+// const LoadingAnimation = () => {
+//     return(
+//         <Box sx={{display: 'flex', justifyContent: 'center', boxSizing: 'border-box', background: {xs: '#40414f', lg: 'transparent'}}}>
+//             <Box sx={{width: {xs: '90%', lg: '50%'}, boxSizing: 'border-box', background: {xs: 'inherit', lg: '#40414f'}, padding: {xs: '1rem 0rem', lg: '1rem'}, borderRadius: '0.3rem'}}>
+//                 <Lottie style={{height: 20, width: 30}} autoPlay animationData={require('../../assets/loading-dots.json')} loop={true}/>
+//             </Box>
+//         </Box>
+//     )
+// }
 
 const NotFound = ({message}) => {
     return(
@@ -52,7 +52,7 @@ const ChatList = ({loading}) => {
                     {response === ''
                         ? <NotFound message={response}/>
                         :
-                        <Box sx={{padding: {xs: '1rem 0rem', lg: '1rem 1rem 0.75rem 1rem'}}}>
+                        <Box sx={{padding: {xs: '1rem 0rem', lg: '1rem 1rem 0.75rem 1rem'}, width: '100%', position: 'relative', boxSizing: 'border-box'}}>
                             <Typography sx={{whiteSpace: 'pre-line'}}>{response}</Typography>
                             <Box sx={{display: 'flex', flexDirection: {xs: 'column', lg: 'row'}, alignItem: 'center', justifyContent: 'flex-end', columnGap: '1rem', borderTop: '1px solid #787889', marginTop: '0.5rem', paddingTop: '0.5rem'}}>
                                 <LoadingButton fullWidth={false} onClick={handleSavePrompt} loading={saving} size='small' fontSize='0.9rem' sx={{color: saving ? '#fff' : '#787889', bgcolor: '#2e2e38', ':hover':{bgcolor: '#202123'}, width: 'unset'}}>save</LoadingButton>
@@ -67,9 +67,7 @@ const ChatList = ({loading}) => {
     return (
         <Box sx={{overflowY: 'scroll', minHeight: 'calc(100vh - 7rem)', paddingBottom: '3rem', scrollBehavior: 'smooth'}}>
             {response?.length !== 0 
-                ? loading 
-                    ? <LoadingAnimation />
-                    : <AnswerBox />
+                ? <AnswerBox />
                 : <></>
             }
         </Box>
