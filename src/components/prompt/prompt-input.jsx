@@ -1,8 +1,9 @@
-import { Cancel, Search, Send } from '@mui/icons-material'
-import { Box, IconButton, Paper } from '@mui/material'
+import { Cancel, Save, Search, Send } from '@mui/icons-material'
+import { Box, Button, IconButton, Paper } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { promptAction } from '../../store/prompt'
+import { LoadingButton } from '@mui/lab'
 
 const PromptInput = ({handleSend, loading}) => {
 
@@ -15,15 +16,12 @@ const PromptInput = ({handleSend, loading}) => {
   }, [loading])
 
   return (
-    <Box sx={{minHeight: '7rem', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-        <Paper elevation={1} sx={{display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', margin: '2rem auto 2rem auto', width: {xs: '90%', lg: '50%'}, padding: '0.5rem 0.5rem', borderRadius: '0.3rem', boxSizing: 'border-box', background: '#40414f'}}>
+    <Box sx={{minHeight: '7rem', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+        <Paper elevation={1} sx={{display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', margin: '2rem auto 1rem auto', width: {xs: '90%', lg: '50%'}, padding: '0.5rem 0.5rem', borderRadius: '0.3rem', boxSizing: 'border-box', background: '#40414f'}}>
             <textarea 
                 autoFocus={true}
                 value={prompt}
                 onChange={(e) => {dispatch(promptAction.setPrompt(e.target.value))}}
-                // onKeyDown={(e) => {
-                //   if(e.key === 'Enter' && !loading) {handleSend()}
-                // }}
                 aria-multiline
                 type="text" 
                 placeholder='Enter Prompt' 
@@ -39,10 +37,12 @@ const PromptInput = ({handleSend, loading}) => {
                     resize: 'none',
                 }}                
                 ref={inputRef}
-                rows={10}
+                rows={20}
             />
-          <IconButton disabled={loading} onClick={handleSend} sx={{borderRadius: '0.5rem'}}><Send sx={{color: prompt !== '' ? '#fff' : '#6b6c7b'}}/></IconButton>            
         </Paper>
+        <Box sx={{width: {xs: '90%', lg: '50%'}, display: 'flex', justifyContent: 'flex-end'}}>
+          <LoadingButton fullWidth={false} loading={loading} size='small' fontSize='0.9rem' sx={{color: loading ? '#fff' : '#787889', bgcolor: '#2e2e38', ':hover':{bgcolor: '#202123'}, width: 'unset'}}>save</LoadingButton>
+        </Box>
     </Box>
   )
 }

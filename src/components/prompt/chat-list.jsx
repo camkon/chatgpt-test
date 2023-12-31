@@ -54,22 +54,16 @@ const ChatList = ({loading}) => {
                         :
                         <Box sx={{padding: {xs: '1rem 0rem', lg: '1rem 1rem 0.75rem 1rem'}, width: '100%', position: 'relative', boxSizing: 'border-box'}}>
                             <Typography sx={{whiteSpace: 'pre-line'}}>{response}</Typography>
-                            <Box sx={{display: 'flex', flexDirection: {xs: 'column', lg: 'row'}, alignItem: 'center', justifyContent: 'flex-end', columnGap: '1rem', borderTop: '1px solid #787889', marginTop: '0.5rem', paddingTop: '0.5rem'}}>
-                                <LoadingButton fullWidth={false} onClick={handleSavePrompt} loading={saving} size='small' fontSize='0.9rem' sx={{color: saving ? '#fff' : '#787889', bgcolor: '#2e2e38', ':hover':{bgcolor: '#202123'}, width: 'unset'}}>save</LoadingButton>
-                            </Box>
                         </Box>
                     }
                 </Box>
             </Box>
         )
     }
-
+    
     return (
-        <Box sx={{overflowY: 'scroll', minHeight: 'calc(100vh - 7rem)', paddingBottom: '3rem', scrollBehavior: 'smooth'}}>
-            {response?.length !== 0 
-                ? <AnswerBox />
-                : <></>
-            }
+        <Box sx={{bgcolor: 'red'}}>
+            <LoadingButton fullWidth={false} onClick={handleSavePrompt} loading={saving} size='small' fontSize='0.9rem' sx={{color: saving ? '#fff' : '#787889', bgcolor: '#2e2e38', ':hover':{bgcolor: '#202123'}, width: 'unset'}}>save</LoadingButton>
         </Box>
     )
 }
