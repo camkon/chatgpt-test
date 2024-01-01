@@ -1,6 +1,7 @@
 import { Avatar, Box } from '@mui/material'
 import Lottie from 'lottie-react'
 import { useEffect, useRef } from 'react'
+import animationData from '../../assets/loading-dots.json'
 
 const ChatList = ({chat}) => {
 
@@ -31,7 +32,7 @@ const ChatList = ({chat}) => {
                     {data?.error == undefined
                         ? data?.answer !== undefined 
                             ? <p style={{margin: '0.25rem 0 0 0'}}>{data?.answer}</p>
-                            : <Lottie style={{height: 20, width: 30, marginTop: '0.75rem'}} autoPlay animationData={require('../../assets/loading-dots.json')} loop={true}/>
+                            : <Lottie style={{height: 20, width: 30, marginTop: '0.75rem'}} autoPlay animationData={animationData} loop={true}/>
                         : <p style={{margin: '0.75rem 0 0 0', color: 'red'}}>{data?.error}</p>
                     }
                 </Box>
