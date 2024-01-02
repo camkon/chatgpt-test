@@ -1,12 +1,14 @@
 import { Box, Typography } from '@mui/material'
 import Lottie from 'lottie-react'
 import { useSelector } from 'react-redux'
+import animationData from '../../assets/loading-dots.json'
+
 
 const LoadingAnimation = () => {
     return(
         <Box sx={{display: 'flex', justifyContent: 'center', boxSizing: 'border-box', background: {xs: '#40414f', lg: 'transparent'}}}>
             <Box sx={{width: {xs: '90%', lg: '50%'}, boxSizing: 'border-box', background: {xs: 'inherit', lg: '#40414f'}, padding: {xs: '1rem 0rem', lg: '1rem'}, borderRadius: '0.3rem'}}>
-                <Lottie style={{height: 20, width: 30}} autoPlay animationData={require('../../assets/loading-dots.json')} loop={true}/>
+                <Lottie style={{height: 20, width: 30}} autoPlay animationData={animationData} loop={true}/>
             </Box>
         </Box>
     )
