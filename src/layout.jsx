@@ -10,6 +10,7 @@ import ToasterComponent from './components/alert/toaster'
 import Search from './components/search'
 import Prompt from './components/prompt'
 import { promptAction } from './store/prompt'
+import History from './components/history'
 
 const Layout = () => {
 
@@ -26,6 +27,8 @@ const Layout = () => {
             {tab === 'prompt' && <Prompt />}
             {tab === 'search' && <Search />}
             {tab === 'files' && <File />}
+            {tab === 'history' && <History />}
+            {tab === 'settings' && <File />}
         </Box>
     )
 }

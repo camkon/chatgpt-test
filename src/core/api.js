@@ -17,4 +17,11 @@ export const api = {
     
     //chat
     chat : BASE_URL + 'chat/',
+
+    //history
+    history_get : BASE_URL + 'history/get',
+
+    //settings
+    settings_get : BASE_URL + 'settings/get',
+    settings_save : BASE_URL + 'settings/save',
 }
