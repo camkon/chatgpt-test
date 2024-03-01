@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Box, Backdrop, CircularProgress } from '@mui/material'
@@ -11,6 +10,7 @@ import Search from './components/search'
 import Prompt from './components/prompt'
 import { promptAction } from './store/prompt'
 import History from './components/history'
+import Settings from './components/settings'
 
 const Layout = () => {
 
@@ -28,7 +28,7 @@ const Layout = () => {
             {tab === 'search' && <Search />}
             {tab === 'files' && <File />}
             {tab === 'history' && <History />}
-            {tab === 'settings' && <File />}
+            {tab === 'settings' && <Settings />}
         </Box>
     )
 }

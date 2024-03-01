@@ -4,6 +4,7 @@ import filesReducer from './files'
 import searchReducer from './search'
 import promptReducer from './prompt'
 import historyReducer from './history'
+import settingsReducer from './settings'
 
 const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
         search: searchReducer,
         prompt: promptReducer,
         history: historyReducer,
+        settings: settingsReducer,
     }},
 )
 

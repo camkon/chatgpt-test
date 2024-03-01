@@ -62,7 +62,7 @@ const ChatList = ({loading}) => {
     }
     
     return (
-        <Box sx={{bgcolor: 'red'}}>
+        <Box>
             <LoadingButton fullWidth={false} onClick={handleSavePrompt} loading={saving} size='small' fontSize='0.9rem' sx={{color: saving ? '#fff' : '#787889', bgcolor: '#2e2e38', ':hover':{bgcolor: '#202123'}, width: 'unset'}}>save</LoadingButton>
         </Box>
     )
