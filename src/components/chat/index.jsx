@@ -20,7 +20,7 @@ const Chat = () => {
       let id = uuidv4()
       setLoading(true)
       dispatch(chatAction.setChatQuestion({id: id, question: input}))
-      axios.post(api.chat, {query: input}).then(res => {
+      axios.post(api.chat, {query: input}, {headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-API-Key': '5b8e7e84-7011-4c47-a5f2-d02ab153de29'}}).then(res => {
         if(res?.status === 200) {
           dispatch(chatAction.setChatAnswer([id, res?.data]))
           setLoading(false)

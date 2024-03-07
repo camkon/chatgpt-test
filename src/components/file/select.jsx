@@ -23,7 +23,7 @@ const Select = () => {
 			page: 0
 		})
 
-        axios.post(api.docs_list, data, {headers: {'Content-Type': 'application/json'}}).then(res => {
+        axios.post(api.docs_list, data, {headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-API-Key': '5b8e7e84-7011-4c47-a5f2-d02ab153de29'}}).then(res => {
 			if(res.status === 200) {
 				dispatch(filesAction.setList(res?.data?.fileslist))
 			}
@@ -39,8 +39,8 @@ const Select = () => {
             fileIndex++
         }
 
-        axios.post(api.docs_upload, formData, {headers: {'Content-Type': 'multipart/form-data'}
-        }).then(res => {
+        axios.post(api.docs_upload, formData, {headers: {'Accept': 'multipart/form-data', 'Content-Type': 'multipart/form-data', 'X-API-Key': '5b8e7e84-7011-4c47-a5f2-d02ab153de29'}}
+        ).then(res => {
             if(res?.status === 200) {
                 dispatch(filesAction.setSelctedFiles([]))
                 handleLoadFilesList()

@@ -16,7 +16,7 @@ const Prompt = () => {
   const {tab} = useSelector(state => state.prompt)
 
   const getPrompt = async () => {
-      axios.post(api.get_prompt).then(res => {
+      axios.post(api.get_prompt, null,{headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-API-Key': '5b8e7e84-7011-4c47-a5f2-d02ab153de29'}}).then(res => {
         if(res?.status === 200) {
           setPrompt(res?.data)
         }
@@ -36,7 +36,7 @@ const Prompt = () => {
   const handleSavePrompt = async () => {
     if(prompt !== '') {
       setSaving(true)
-      axios.post(api.set_prompt, {prompt: prompt}).then(res => {
+      axios.post(api.set_prompt, {prompt: prompt}, {headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-API-Key': '5b8e7e84-7011-4c47-a5f2-d02ab153de29'}}).then(res => {
         if(res?.status === 200) {
           setSaving(false)
         }

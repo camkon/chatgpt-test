@@ -34,7 +34,7 @@ const ChatList = ({loading}) => {
     const handleSavePrompt = async () => {
       if(response !== '') {
         setSaving(true)
-        axios.post(api.set_prompt, {prompt: response}).then(res => {
+        axios.post(api.set_prompt, {prompt: response}, {headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-API-Key': '5b8e7e84-7011-4c47-a5f2-d02ab153de29'}}).then(res => {
           if(res?.status === 200) {
             setSaving(false)
           }

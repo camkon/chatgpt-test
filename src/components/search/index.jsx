@@ -17,7 +17,7 @@ const Search = () => {
   const handleSearchQuery = async () => {
     if(question !== '') {
       setLoading(true)
-      axios.post(api.search, {query: question}).then(res => {
+      axios.post(api.search, {query: question}, {headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-API-Key': '5b8e7e84-7011-4c47-a5f2-d02ab153de29'}}).then(res => {
         if(res?.status === 200) {
           dispatch(searchAction.setAnswer(res?.data))
           setLoading(false)

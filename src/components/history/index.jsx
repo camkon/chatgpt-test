@@ -32,7 +32,7 @@ const History = () => {
   const handleLoadHistory = async ({pageno, recordcount}) => {
     // if(history?.length === 0) {
       setLoading(true)
-      axios.post(api.history_get, {pageno: pageno, recordcount: recordcount}).then(res => {
+      axios.post(api.history_get, {pageno: pageno, recordcount: recordcount}, {headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-API-Key': '5b8e7e84-7011-4c47-a5f2-d02ab153de29'}}).then(res => {
         if(res?.status === 200) {
           dispatch(historyAction.setHistory(res?.data))
           setLoading(false)

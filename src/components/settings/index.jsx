@@ -27,7 +27,7 @@ const Settings = () => {
   const handleLoadSettings = async () => {
     if(settings === null) {
       setLoading(true)
-      axios.post(api.settings_get).then(res => {
+      axios.post(api.settings_get, null,{headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-API-Key': '5b8e7e84-7011-4c47-a5f2-d02ab153de29'}}).then(res => {
         console.log(res)
         if(res?.status === 200) {
           dispatch(settingsAction.setSettings(res?.data.data))
@@ -72,7 +72,7 @@ const Settings = () => {
           phonenumber: values?.phonenumber,
           historycount: values?.historycount,
           model: values?.model,
-        }).then(res => {
+        }, {headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-API-Key': '5b8e7e84-7011-4c47-a5f2-d02ab153de29'}}).then(res => {
           if(res?.status === 200) {
             dispatch(settingsAction.setSettings(values))
             setSaving(false)

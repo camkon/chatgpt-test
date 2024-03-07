@@ -31,7 +31,7 @@ const FileList = () => {
 			page: 0
 		})
 
-		axios.post(api.docs_list, data, {headers: {'Content-Type': 'application/json'}}).then(res => {
+		axios.post(api.docs_list, data, {headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-API-Key': '5b8e7e84-7011-4c47-a5f2-d02ab153de29'}}).then(res => {
 			if(res.status === 200) {
 				dispatch(filesAction.setList(res?.data?.fileslist))
 			}
@@ -42,7 +42,7 @@ const FileList = () => {
 		const data = JSON.stringify({
 			doc_id: deleteItem
 		})
-		axios.post(api.docs_delete, data, {headers: {'Content-Type': 'application/json'}}).then(res => {if(res?.status === 200) {
+		axios.post(api.docs_delete, data, {headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-API-Key': '5b8e7e84-7011-4c47-a5f2-d02ab153de29'}}).then(res => {if(res?.status === 200) {
 		  toast((t) => <SuccessToast msg={'File Deleted'} id={t.id}/>)
 		  handleLoadFilesList()
 		}else {
@@ -55,7 +55,7 @@ const FileList = () => {
 		const data = JSON.stringify({
 			filename: filename
 		})
-		axios.post(api.docs_download, data, {headers: {'Content-Type': 'application/json'}, responseType: 'blob'}).then(res => {if(res?.status === 200) {
+		axios.post(api.docs_download, data,{headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-API-Key': '5b8e7e84-7011-4c47-a5f2-d02ab153de29', responseType: 'blob'}}).then(res => {if(res?.status === 200) {
 			const blob = new Blob([res?.data], { type: filename.split('.')?.[1] })
 			const url = URL.createObjectURL(blob)
 			const link = document.createElement('a')
