@@ -32,8 +32,8 @@ function Copyright() {
 }
 
 const initialValues = {
-  email: 'admin@demo.com',
-  password: 'admin-demo-pass',
+  email: '',
+  password: '',
   isSubmitting: false
 }
 
