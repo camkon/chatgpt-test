@@ -39,7 +39,7 @@ const ChatList = ({loading}) => {
                             <Box sx={{display: 'flex', flexDirection: {xs: 'column', lg: 'row'}, alignItem: 'center', justifyContent: 'flex-end', columnGap: '1rem', borderTop: '1px solid #787889', marginTop: '0.5rem', paddingTop: '0.5rem'}}>
                                 <Typography fontSize='0.9rem' sx={{color: '#787889'}}>source: {item?.source}</Typography>
                                 <Typography fontSize='0.9rem' sx={{color: '#787889'}}>page: {item?.page}</Typography>
-                                <Typography fontSize='0.9rem' sx={{color: '#787889'}}>page: {item?.score}</Typography>
+                                <Typography fontSize='0.9rem' sx={{color: '#787889'}}>score: {item?.score}</Typography>
                             </Box>
                         </Box>
                     ))}
