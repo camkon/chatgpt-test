@@ -31,7 +31,7 @@ const ChatList = ({chat}) => {
                     <Avatar sx={{background: '#19c37d', borderRadius: '0.25rem', height: '2rem', width: '2rem', fontSize: '0.9rem'}}>C</Avatar>
                     {data?.error == undefined
                         ? data?.answer !== undefined 
-                            ? <p style={{margin: '0.25rem 0 0 0'}}>{data?.answer}</p>
+                            ? <p style={{margin: '0.25rem 0 0 0', whiteSpace: 'pre-line'}}>{data?.answer}</p>
                             : <Lottie style={{height: 20, width: 30, marginTop: '0.75rem'}} autoPlay animationData={animationData} loop={true}/>
                         : <p style={{margin: '0.75rem 0 0 0', color: 'red'}}>{data?.error}</p>
                     }

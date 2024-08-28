@@ -16,7 +16,7 @@ const LoadingAnimation = () => {
 
 const NotFound = ({message}) => {
     return(
-        <Box sx={{padding: '1rem 0', background: '#40414f', width: {xs: '90%', lg: '50%'}, margin: '0 auto', boxSizing: 'border-box', borderRadius: '0.3rem', textAlign: 'center'}}>
+        <Box sx={{padding: '1rem 0', background: '#40414f', width: {xs: '90%', lg: '50%'}, margin: '0 auto', boxSizing: 'border-box', borderRadius: '0.3rem', textAlign: 'center', whiteSpace: 'pre-line'}}>
             {message}
         </Box>
     )
